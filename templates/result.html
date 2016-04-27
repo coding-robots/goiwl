@@ -8,7 +8,7 @@
 
     <div class="grid two">
       <div>
-        <h2>Your Badge</h2>
+        <h2>{{if .isShared}}{{else}}Your {{end}}Badge</h2>
 
         <div class="well">
           {{template "badge.html" .}}
