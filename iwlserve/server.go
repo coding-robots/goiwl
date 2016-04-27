@@ -111,7 +111,9 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	p := &indexPage{page: page{Description: "Analyze your writing style"}}
+	p := &indexPage{page: page{
+		Description: "Check which famous writer you write like with this statistical analysis tool.",
+	}}
 
 	if r.Method == "POST" {
 		author, err := analyze(r.FormValue("text"))
