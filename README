@@ -18,12 +18,12 @@ RUNNING
 ~~~~~~~
 
 iwlserve is the thing you want to run on a server.
-Run it in the current directory, so that it knows
-where data file and templates are:
+Run it in the root project directory, so that it knows
+where the data file and templates are:
 
       $ iwlserve
 
-It optinally accepts arguments: type iwlserve -h to show them.
+It optionally accepts arguments: type iwlserve -h to show them.
 
 
 LICENSE
