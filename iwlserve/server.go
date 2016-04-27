@@ -192,7 +192,7 @@ func writerHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	p := new(writerPage)
-	p.Title = author + " on I Write Like"
+	p.Title = author
 	p.Author = author
 	p.Info = infoByAuthor[author]
 
@@ -203,7 +203,7 @@ func writerHandler(w http.ResponseWriter, r *http.Request) {
 
 func aboutHandler(w http.ResponseWriter, r *http.Request) {
 	p := new(aboutPage)
-	p.Title = "About I Write Like"
+	p.Title = "About"
 	p.Authors = sortedAuthors
 	p.URLNameByAuthor = urlNameByAuthor
 
