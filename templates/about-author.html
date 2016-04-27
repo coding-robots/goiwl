@@ -1,0 +1,15 @@
+{{if .Info}}
+  {{if .Info.PictureFile}}
+  <div class="author-pic">
+      <img class="img-rounded" style="max-width: 90%"
+      src="/static/writers/{{.Info.PictureFile}}" alt="Picture of {{.Author}}">
+    {{if .Info.PictureCopyright}}
+        <p class="pic-copyright text-muted"><small>{{.Info.PictureCopyright}}</small></p>
+    {{end}}
+  </div>
+  {{end}}
+    <p>
+      {{.Info.Desc}}
+    </p>
+    <p><a href="{{.Info.WikiLink}}">Read more on Wikipedia</a></p>
+{{end}}

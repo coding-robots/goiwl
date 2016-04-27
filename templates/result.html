@@ -1,0 +1,110 @@
+{{template "header.html" .}}
+{{if .IsShared}}
+{{template "site-info.html" .}}
+{{end}}
+
+<section class="result">
+  <div class="container">
+
+    <div class="grid two">
+      <div>
+        <h2>Your Badge</h2>
+
+        <div class="well">
+          {{template "badge.html" .}}
+        </div>
+      </div>
+
+      <div>
+        <h3>Share</h3>
+
+        <p>{{template "share-buttons.html" .}}
+
+          <label for="modal_1" class="button">Code for blog or website</label>
+        </p>
+
+        <h3>Link to share</h3>
+
+        <input type="text" class="form-control" value="http://iwl.me/s/{{.Crc}}" onclick="this.select()">
+
+        <div class="modal">
+          <input id="modal_1" type="checkbox" />
+          <label for="modal_1" class="overlay"></label>
+          <article>
+            <header>
+              <h3>HTML Code</h3>
+              <label for="modal_1" class="close">&times;</label>
+            </header>
+            <section class="content">
+              <p>Copy and paste the code below into your blog post or a page on your website, or embed it into your blog template.
+                Please refer to your blog software documentation for more information on how to insert HTML.</p>
+
+              {{/* Template engine will take care of escaping the code inside textarea */}}
+              <textarea rows="12" class="form-control" style="background: #f4f4f4; font: 8pt/1 monospace;" onclick="this.select()">{{template "badge.html" .}}</textarea>
+
+            </section>
+            <footer>
+              <label for="modal_1" class="button">
+        Close
+      </label>
+            </footer>
+          </article>
+        </div>
+      </div>
+    </div>
+    <!-- /.grid -->
+
+  </div>
+  <!--container-->
+</section>
+
+
+<div class="container">
+  <div class="grid two" style="margin-top: 20px">
+    <div style="padding-right: 20px">
+      <script type="text/javascript">
+        amzn_assoc_placement = "adunit0";
+        amzn_assoc_search_bar = "true";
+        amzn_assoc_tracking_id = "iwritelike-20";
+        amzn_assoc_search_bar_position = "bottom";
+        amzn_assoc_ad_mode = "search";
+        amzn_assoc_ad_type = "smart";
+        amzn_assoc_marketplace = "amazon";
+        amzn_assoc_region = "US";
+        amzn_assoc_title = "Books by {{.Author}} on Amazon";
+        amzn_assoc_default_search_phrase = "{{.Author}}";
+        amzn_assoc_default_category = "Books";
+        amzn_assoc_linkid = "49212256b94a7fb6481d2c4ad46f39fc";
+      </script>
+      <script src="//z-na.amazon-adsystem.com/widgets/onejs?MarketPlace=US"></script>
+    </div>
+    <div>
+      <h2>About <i>{{.Author}}</i></h2>
+      {{template "about-author.html" .}}
+    </div>
+  </div>
+</div>
+
+<div class="amazon-cpm-ad container" style="text-align: center">
+{{if .IsShared}}
+<script type="text/javascript" language="javascript" src="//c.amazon-adsystem.com/aax2/getads.js"></script>
+<script type="text/javascript" language="javascript">
+//<![CDATA[
+aax_getad_mpb({
+  "slot_uuid":"e6539eb0-643f-4d0a-aa1c-93fc5f28cd87"
+});
+//]]>
+</script>
+{{else}}
+<script type="text/javascript" language="javascript" src="//c.amazon-adsystem.com/aax2/getads.js"></script>
+<script type="text/javascript" language="javascript">
+//<![CDATA[
+aax_getad_mpb({
+  "slot_uuid":"1a4bf134-f748-450e-bb57-6ea016ce163f"
+});
+//]]>
+</script>
+{{end}}
+</div>
+
+{{template "footer.html" .}}

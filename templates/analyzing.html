@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="refresh" content="{{.Delay}}; url={{.URL}}">
+    <meta name="seriously"
+      content="
+        Yes, we do actually analyze text! This delay is here
+        because people didn't believe that we actually analyzed
+        text if we returned results instantly. Go figure...
+        Randomish delay also helps distribute stress on server.
+     ">
+    <title>{{if .Title}}{{.Title}} - {{end}}I Write Like</title>
+    {{if .Description}}<meta name="description" value="{{.Description}}">{{end}}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="image/png" href="/static/favicon.png" />
+    <link href="/static/css/picnic.min.css" rel="stylesheet">
+    <link href="/static/css/site.css" rel="stylesheet">
+  </head>
+
+  <body>
+
+    <div class="analyzing">
+    <svg width='120px' height='120px' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid" class="uil-ring-alt"><rect x="0" y="0" width="100" height="100" fill="none" class="bk"></rect><circle cx="50" cy="50" r="40" stroke="#dddddd" fill="none" stroke-width="10" stroke-linecap="round"></circle><circle cx="50" cy="50" r="40" stroke="#0074d9" fill="none" stroke-width="6" stroke-linecap="round"><animate attributeName="stroke-dashoffset" dur="2s" repeatCount="indefinite" from="0" to="502"></animate><animate attributeName="stroke-dasharray" dur="2s" repeatCount="indefinite" values="150.6 100.4;1 250;150.6 100.4"></animate></circle></svg>
+
+    <p>Analyzing your text<br>
+    <small>If nothing happens, please <a href="{{.URL}}">click here</a>.</small>
+    </div>
+    <script>
+        window.setTimeout(function(){
+            window.location.href = "{{.URL}}";
+        }, {{.Delay}} * 1000);
+    </script>
+
+</body>
+</html>

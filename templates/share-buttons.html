@@ -1,0 +1,21 @@
+<!--
+<div class="quote-box">
+<p>I write like {{.Author}}. Proof: <a href="http://iwl.me/s/{{.Crc}}">http://iwl.me/s/{{.Crc}}</a>
+</div>
+-->
+
+<button class="button-share" onclick="window.open('http://twitter.com/?status='+encodeURIComponent('I write like {{.Author}}. Proof: http://iwl.me/s/{{.Crc}}'))"><b style="color: #009ACD">Twitter</b></button>
+
+<button class="button-share" onclick="window.open('http://www.facebook.com/sharer.php?u='+encodeURIComponent('http://iwl.me/s/{{.Crc}}')+'&amp;t='+encodeURIComponent('I write like {{.Author}}'))"><b style="color:#104E8B">Facebook</b></button>
+
+<button class="button-share" onclick="window.open('https://plus.google.com/share?url='+encodeURIComponent('http://iwl.me/s/{{.Crc}}'))"><b style="color:#C83425">Google+</b></button>
+
+<button class="button-share" onclick="window.open('http://www.tumblr.com/share?v=3&amp;u='+encodeURIComponent('http://iwl.me/s/{{.Crc}}')+'&amp;t='+encodeURIComponent('I write like {{.Author}}'))"><b style="color:#41586F">Tumblr</b></button>
+
+<button class="button-share" onclick="window.open('http://wordpress.com/wp-admin/press-this.php?u='+encodeURIComponent('http://iwl.me/s/{{.Crc}}')+'&amp;t='+encodeURIComponent('I write like {{.Author}}'+'&amp;s='+encodeURIComponent('I write like {{.Author}}')))"><b style="color:#176F96">WordPress</b><span style="color:#999">.com</span></button>
+
+{{/*}}
+<button class="button-share" onclick="window.open('http://pinterest.com/pin/create/button/?url='+encodeURIComponent('http://iwl.me/s/{{.Crc}}')+'&amp;description='+encodeURIComponent('I write like {{.Author}}'))"><b style="color:#DC6A6F">Pinterest</b></button>
+
+<button class="button-share" onclick="window.open('http://www.stumbleupon.com/submit?url='+encodeURIComponent('http://iwl.me/s/{{.Crc}}')+'&amp;title='+encodeURIComponent('I write like {{.Author}}'))"><b style="color:#777">StumbleUpon</b></button>
+{{*/}}

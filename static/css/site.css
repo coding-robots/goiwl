@@ -1,0 +1,121 @@
+@import "clearsans.css";
+
+html, body {
+    font: 16px "Clear Sans", "Helvetica Neue", Arial, Helvetica, sans-serif;
+    line-height: 1.6;
+}
+
+body {
+    padding: 3em 0;
+}
+
+.container, #footer {
+    max-width: 1024px;
+    width: 90%;
+    margin: auto;
+    padding: 0.6em;
+}
+
+nav .brand {
+    font-size: 20px;
+    margin-left: auto;
+}
+
+.button {
+    line-height: auto;
+}
+
+.alert.error {
+    background: #ff4136;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 4px;
+    margin: 5px 0;
+}
+
+.text-muted,
+#footer {
+    color: #555;
+}
+
+.right-or-centered {
+        text-align: center;
+}
+
+@media (min-width: 60em) {
+    .right-or-centered {
+        text-align: right;
+    }
+}
+
+.button-large {
+    font-size: 20px;
+}
+
+.button-share,
+.button-share:focus {
+    border: 1px solid #ccc;
+    background: #fefefe;
+    border-bottom-width: 2px;
+}
+
+.button-share:hover {
+    border: 1px solid #aaa;
+    background: #eee;
+    border-bottom-width: 2px;
+}
+
+.button-share:active {
+    border: 1px solid #444;
+    background: #fff;
+}
+
+
+.result {
+    background: #f4f4f4 url(/static/c.png);
+    border-bottom: 1px solid #ddd;
+    padding: 20px 0;
+}
+
+.about {
+    background: #D9F1FD;
+    border-bottom: 1px solid #CBE3EF;
+    padding: 20px 0;
+}
+
+.footnote {
+    line-height: 1.2;
+    font-size: 13px;
+    color: #777;
+}
+
+.amazon-mobile-ad {
+    display: none;
+}
+
+@media (max-width: 60em) {
+    .amazon-cpm-ad {
+        display: none;
+    }
+
+    .amazon-mobile-ad {
+        display: block;
+    }
+}
+
+.author-pic {
+    float: right;
+    margin-left: 20px;
+    margin-bottom: 20px;
+}
+
+.analyzing {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+
+    text-align: center;
+    color: #555;
+}

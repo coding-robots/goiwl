@@ -1,0 +1,81 @@
+{{template "header.html" .}}
+
+<div class="container" style="max-width: 728px">
+
+<div class="amazon-cpm-ad">
+<script type="text/javascript" language="javascript" src="//c.amazon-adsystem.com/aax2/getads.js"></script>
+<script type="text/javascript" language="javascript">
+//<![CDATA[
+aax_getad_mpb({
+  "slot_uuid":"dc6e0928-2a5f-44ab-a398-14d978174ea6"
+});
+//]]>
+</script>
+</div>
+
+
+<p class="lead">
+Check <em>which famous writer you write like</em> with this statistical
+analysis tool, which analyzes your word choice and writing style and compares
+them with those of the famous writers.
+
+<form name="index" method="post" class="form">
+  <div class="row">
+    <div class="col-md-12">
+
+      {{with .Error}}
+      <div class="alert error">
+        <b>Error: </b> {{.}}
+      </div>
+      {{end}}
+
+      <textarea class="form-control {{if .Error}}has-error{{end}}" name="text" rows="10" placeholder="Paste or type your text here"></textarea>
+    </div>
+  </div>
+  <div class="row">
+    <div class="three-fourth text-muted" style="line-height: 1.2">
+      <small>
+        Any English text will do: blog post, journal entry, comment,
+        chapter of your book, etc. For reliable results paste at least a few
+        paragraphs. Very long texts are cut before processing.
+        <b>The program doesn't store or use your input for any other purposes.</b>
+      </small>
+    </div>
+    <div class="right-or-centered">
+      <input style="margin-top: 8px;" class="button-large" type="submit" name="btn"
+      value="   Analyze   "/>
+    </div>
+  </div>
+</form>
+
+<div class="amazon-cpm-ad">
+  <script type="text/javascript" language="javascript" src="//c.amazon-adsystem.com/aax2/getads.js"></script>
+  <script type="text/javascript" language="javascript">
+  //<![CDATA[
+  aax_getad_mpb({
+    "slot_uuid":"4017e4a7-0f81-4948-af24-2dc94ba7af90"
+  });
+  //]]>
+  </script>
+</div>
+
+<div class="amazon-mobile-ad">
+  <script type="text/javascript">
+amzn_assoc_placement = "adunit0";
+amzn_assoc_enable_interest_ads = "true";
+amzn_assoc_tracking_id = "iwritelike-20";
+amzn_assoc_ad_mode = "auto";
+amzn_assoc_ad_type = "smart";
+amzn_assoc_marketplace = "amazon";
+amzn_assoc_region = "US";
+amzn_assoc_linkid = "ca599f977b2d5f82ae7d3e5e8d6f405d";
+amzn_assoc_emphasize_categories = "16261631,2617941011,1000,13900861,2335752011,13900871,3760901,133140011,1064954,229534";
+amzn_assoc_fallback_mode = {"type":"search","value":"writing"};
+amzn_assoc_default_category = "All";
+</script>
+<script src="//z-na.amazon-adsystem.com/widgets/onejs?MarketPlace=US"></script>
+</div>
+
+</div>
+
+{{template "footer.html" .}}

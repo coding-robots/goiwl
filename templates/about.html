@@ -1,0 +1,68 @@
+{{template "header.html" .}}
+
+<div class="container">
+    <div class="row">
+
+        <div class="two-third">
+            <h1>About I Write Like</h1>
+
+            <i>I Write Like</i> checks which famous writer you write like by analyzing your word choice and writing style and comparing them with those of the famous writers.	Analyze your text
+
+
+            <h2 style="padding-bottom: 0">How does it work?</h2>
+            <p>The algorithm pretty simple, and you can find it on every computer today. It’s a Bayesian classifier, which is widely used to fight spam on the Internet. Take for example the “Mark as spam” button in Gmail or Outlook. When you receive a message that you think is spam, you click this button, and the internal database gets trained to recognize future messages similar to this one as spam. This is basically how “I Write Like” works on my side: I feed it with “Frankenstein” and tell it, “This is Mary Shelley. Recognize works similar to this as Mary Shelley.” Of course, the algorithm is slightly different from the one used to detect spam, because it takes into account more stylistic features of the text, such as the number of words in sentences, the number of commas, semicolons, and whether the sentence is a direct speech or a quotation.</p>
+
+            <p>Do you want to learn more?</p>
+            <ul>
+                <li><a href="http://www.theawl.com/2010/07/a-qa-with-the-creator-of-i-write-like-the-algorithm-is-not-a-rocket-science">Read interview with the author</a>.</li>
+                <li>Check out <a href="https://en.wikipedia.org/wiki/I_Write_Like">Wikipedia page</a> about this site.</li>
+            </ul>
+
+            <h2 style="padding-bottom: 0">It's open source!</h2>
+
+            <p>We published our <a href="https://github.com/coding-robots/goiwl">source code </a>for everyone to review or reuse.</p>
+
+            <h2 style="padding-bottom: 0">Is it correct?</h2>
+            <p>It depends on your views on writing style. Certainly, you can't rely on our analysis 100%. Try it and decide for yourself.</p>
+
+
+            <h2 style="padding-bottom: 0">Contact</h2>
+
+            <p>To contact us, please email to <a href="mailto:iwl@codingrobots.com">iwl@codingrobots.com</a>
+
+
+            <h2 style="padding-bottom: 0">I want to learn how to write</h2>
+            <p>Great! Here are some books about writing:</p>
+
+                <script type="text/javascript">
+                amzn_assoc_placement = "adunit0";
+                amzn_assoc_search_bar = "true";
+                amzn_assoc_tracking_id = "iwritelike-20";
+                amzn_assoc_search_bar_position = "top";
+                amzn_assoc_ad_mode = "search";
+                amzn_assoc_ad_type = "smart";
+                amzn_assoc_marketplace = "amazon";
+                amzn_assoc_region = "US";
+                amzn_assoc_title = "Search Results from Amazon";
+                amzn_assoc_default_search_phrase = "on writing";
+                amzn_assoc_default_category = "Books";
+                amzn_assoc_linkid = "4283c5e94820afa8ede527b06f15de29";
+                </script>
+                <script src="//z-na.amazon-adsystem.com/widgets/onejs?MarketPlace=US"></script>
+
+        </div>
+
+
+        <div style="padding-left: 20px">
+            <h2>Available authors <span class="label">{{len .Authors}}</span></h2>
+            <ul>
+            {{range $author := .Authors}}
+                <li><a href="/writer/{{index $.URLNameByAuthor $author}}">{{$author}}</a></li>
+            {{end}}
+            </li>
+        </div>
+
+    </div>
+</div>
+
+{{template "footer.html" .}}
