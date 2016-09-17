@@ -241,6 +241,12 @@ func loadAuthors() {
 	log.Printf("number of words: %d", classifier.NumberOfTokens())
 }
 
+func serveStaticFile(filename string) http.HandlerFunc {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		http.ServeFile(w, r, filename)
+	})
+}
+
 func Serve(addr, templateDir, staticDir string) {
 	// Parse templates.
 	templates = template.Must(template.ParseGlob(filepath.Join(templateDir, "*.html")))
@@ -257,6 +263,8 @@ func Serve(addr, templateDir, staticDir string) {
 	http.HandleFunc("/about/", aboutHandler)
 	http.HandleFunc("/api", apiHandler)
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir(staticDir))))
+	http.HandleFunc("/favicon.ico", serveStaticFile(filepath.Join(staticDir, "favicon.ico")))
+	http.HandleFunc("/robots.txt", serveStaticFile(filepath.Join(staticDir, "robots.txt")))
 
 	// Launch server.
 	log.Printf("Started server at %s", addr)
