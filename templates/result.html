@@ -3,6 +3,12 @@
 {{template "site-info.html" .}}
 {{end}}
 
+<div class="memoires-bn">
+<a href="https://www.codingrobots.com/memoires/">
+<img src="https://iwl.me/static/memoires.jpg" width="728" height="90" border="0" alt="Mémoires - easy to use encrypted journal/diary app for your Mac">
+</a>
+</div>
+
 <section class="result">
   <div class="container">
 
@@ -83,28 +89,6 @@
       {{template "about-author.html" .}}
     </div>
   </div>
-</div>
-
-<div class="amazon-cpm-ad container" style="text-align: center">
-{{if .IsShared}}
-<script type="text/javascript" language="javascript" src="//c.amazon-adsystem.com/aax2/getads.js"></script>
-<script type="text/javascript" language="javascript">
-//<![CDATA[
-aax_getad_mpb({
-  "slot_uuid":"e6539eb0-643f-4d0a-aa1c-93fc5f28cd87"
-});
-//]]>
-</script>
-{{else}}
-<script type="text/javascript" language="javascript" src="//c.amazon-adsystem.com/aax2/getads.js"></script>
-<script type="text/javascript" language="javascript">
-//<![CDATA[
-aax_getad_mpb({
-  "slot_uuid":"86e6081b-8d7c-4a22-ae93-d4b479a51285"
-});
-//]]>
-</script>
-{{end}}
 </div>
 
 {{template "footer.html" .}}
