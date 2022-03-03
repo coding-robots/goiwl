@@ -5,15 +5,15 @@
     <title>{{if .Title}}{{.Title}} - {{end}}I Write Like</title>
     {{if .Description}}<meta name="description" value="{{.Description}}">{{end}}
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" type="image/png" href="/static/favicon.png" />
-    <link href="/static/css/picnic.min.css" rel="stylesheet">
-    <link href="/static/css/site.css" rel="stylesheet">
+    <link rel="shortcut icon" type="image/png" href="{{.SitePrefix}}/static/favicon.png" />
+    <link href="{{.SitePrefix}}/static/css/picnic.min.css" rel="stylesheet">
+    <link href="{{.SitePrefix}}/static/css/site.css" rel="stylesheet">
   </head>
   <body>
 
     <nav>
         <a href="/" class="brand">
-          <img class="logo" src="/static/iwl.png">
+          <img class="logo" src="{{.SitePrefix}}/static/iwl.png">
           <span>I Write Like</span>
         </a>
 
@@ -22,9 +22,9 @@
         <label for="bmenub" class="burger pseudo button">menu &#8801;</label>
 
         <div class="menu">
-          <a class="pseudo button" href="/">Home</a>
+          <a class="pseudo button" href="{{.SitePrefix}}/">Home</a>
 
-          <a class="pseudo button" href="/about/">About</a>
+          <a class="pseudo button" href="{{.SitePrefix}}/about/">About</a>
 
           <a class="pseudo button" href="http://blog.iwl.me">Blog</a>
 

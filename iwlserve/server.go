@@ -46,6 +46,7 @@ type page struct {
 	Title       string
 	Description string
 	Error       string
+	SitePrefix  string
 }
 
 type indexPage struct {
@@ -113,6 +114,7 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 
 	p := &indexPage{page: page{
 		Description: "Check which famous writer you write like with this statistical analysis tool.",
+		SitePrefix:  sitePrefix,
 	}}
 
 	if r.Method == "POST" {
@@ -131,7 +133,8 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 
 			// Successful analysis, redirect to author page.
 			p := new(analyzingPage)
-			p.URL = path.Join("/", "b", crcByAuthor[author])
+			p.SitePrefix = sitePrefix
+			p.URL = path.Join(sitePrefix, "b", crcByAuthor[author])
 			p.Delay = rand.Intn(2) + 1
 
 			if err := templates.Lookup("analyzing.html").Execute(w, p); err != nil {
@@ -157,6 +160,7 @@ func makeResultHandler(isShared bool) http.HandlerFunc {
 		}
 
 		p := new(resultPage)
+		p.SitePrefix = sitePrefix
 		p.Title = "You write like " + author
 		p.Author = author
 		p.Crc = crcByAuthor[author]
@@ -192,6 +196,7 @@ func writerHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	p := new(writerPage)
+	p.SitePrefix = sitePrefix
 	p.Title = author
 	p.Author = author
 	p.Info = infoByAuthor[author]
@@ -203,6 +208,7 @@ func writerHandler(w http.ResponseWriter, r *http.Request) {
 
 func aboutHandler(w http.ResponseWriter, r *http.Request) {
 	p := new(aboutPage)
+	p.SitePrefix = sitePrefix
 	p.Title = "About"
 	p.Authors = sortedAuthors
 	p.URLNameByAuthor = urlNameByAuthor
