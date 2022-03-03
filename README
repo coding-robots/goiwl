@@ -17,13 +17,12 @@ E  |
 RUNNING
 ~~~~~~~
 
-iwlserve is the thing you want to run on a server.
-Run it in the root project directory, so that it knows
-where the data file and templates are:
+iwlserve is the thing you want to run on a server:
 
-      $ iwlserve
+      $ iwlserve -s localhost:8080
 
-It optionally accepts arguments: type iwlserve -h to show them.
+This starts an HTTP server on the given port.
+Without arguments it launches in FastCGI mode.
 
 
 LICENSE
@@ -32,7 +31,7 @@ LICENSE
 Source code:
 
 The MIT License (MIT)
-Copyright (c) 2013-2016 Dmitry Chestnykh
+Copyright (c) 2013-2022 Dmitry Chestnykh
 
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
@@ -55,9 +54,9 @@ SOFTWARE.
 
 * * *
 
-All images (located in /static/ directory) are in the public domain.
+All images (located in iwlserve/static/ directory) are in the public domain.
 
-Data corpus (data.gobz directory) is in the public domain.
+Data corpus (iwlserve/data/data.gobz directory) is in the public domain.
 
 Not a license, but a trademark notice: you cannot call your own publicly
 running version of the program (modified or not) "I Write Like" without my
