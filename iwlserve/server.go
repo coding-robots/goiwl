@@ -259,24 +259,26 @@ func Serve(addr string) {
 	loadAuthors()
 
 	// Add handlers.
-	http.HandleFunc("/", indexHandler)
-	http.HandleFunc("/b/", makeResultHandler(false))
-	http.HandleFunc("/s/", makeResultHandler(true))
-	http.HandleFunc("/w/", writerRedirectHandler)
-	http.HandleFunc("/writer/", writerHandler)
-	http.HandleFunc("/about/", aboutHandler)
-	http.HandleFunc("/api", apiHandler)
-	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.FS(embeddedFS))))
-	http.HandleFunc("/favicon.ico", serveStaticFile("static/favicon.ico"))
-	http.HandleFunc("/robots.txt", serveStaticFile("static/robots.txt"))
+	mux := http.NewServeMux()
+	mux.HandleFunc("/", indexHandler)
+	mux.HandleFunc("/b/", makeResultHandler(false))
+	mux.HandleFunc("/s/", makeResultHandler(true))
+	mux.HandleFunc("/w/", writerRedirectHandler)
+	mux.HandleFunc("/writer/", writerHandler)
+	mux.HandleFunc("/about/", aboutHandler)
+	mux.HandleFunc("/api", apiHandler)
+	mux.Handle("/static/", http.FileServer(http.FS(embeddedFS)))
+	mux.HandleFunc("/favicon.ico", serveStaticFile("static/favicon.ico"))
+	mux.HandleFunc("/robots.txt", serveStaticFile("static/robots.txt"))
+	handler := http.StripPrefix(sitePrefix, mux)
 
 	// Launch server.
 	if addr == "" {
 		log.Printf("Started FastCGI server")
-		fcgi.Serve(nil, nil)
+		fcgi.Serve(nil, handler)
 	} else {
 		log.Printf("Started HTTP server at %s", addr)
-		if err := http.ListenAndServe(addr, nil); err != nil {
+		if err := http.ListenAndServe(addr, handler); err != nil {
 			log.Fatal(err)
 		}
 	}

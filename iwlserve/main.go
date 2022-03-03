@@ -20,6 +20,7 @@ var (
 	classifier *bayes.Bayes
 
 	siteBaseURL = "https://iwl.me"
+	sitePrefix  = ""
 )
 
 func classifyStdin() {
