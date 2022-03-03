@@ -14,11 +14,8 @@ import (
 )
 
 var (
-	dataFile     = flag.String("f", "data.gobz", "trained data file")
-	serverAddr   = flag.String("s", "localhost:8080", "HTTP service address and port (e.g. ':8080')")
-	templatesDir = flag.String("templates", "templates", "templates directory")
-	staticDir    = flag.String("static", "static", "static files directory")
-	tryClassify  = flag.Bool("try", false, "read input from stdin and classify it")
+	serverAddr  = flag.String("s", "localhost:8080", "HTTP service address and port (e.g. ':8080')")
+	tryClassify = flag.Bool("try", false, "read input from stdin and classify it")
 
 	classifier *bayes.Bayes
 
@@ -51,17 +48,17 @@ func classifyStdin() {
 
 func main() {
 	flag.Parse()
-	if *dataFile == "" || !*tryClassify && (*serverAddr == "" || *templatesDir == "" || *staticDir == "") {
-		flag.Usage()
-		os.Exit(2)
-	}
-
 	t := time.Now()
 	var err error
-	classifier, err = bayes.LoadFile(*dataFile)
+	f, err := embeddedFS.Open("data/data.gobz")
+	if err != nil {
+		log.Fatal(err)
+	}
+	classifier, err = bayes.LoadReader(f)
 	if err != nil {
 		log.Fatalf("error loading data: %s", err)
 	}
+	f.Close()
 
 	if *tryClassify {
 		classifyStdin()
@@ -69,5 +66,5 @@ func main() {
 	}
 	fmt.Printf("Loaded in %s\n", time.Now().Sub(t))
 
-	Serve(*serverAddr, *templatesDir, *staticDir)
+	Serve(*serverAddr)
 }

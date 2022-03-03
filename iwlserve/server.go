@@ -8,7 +8,6 @@ import (
 	"math/rand"
 	"net/http"
 	"path"
-	"path/filepath"
 	"sort"
 	"strconv"
 	"unicode/utf8"
@@ -242,14 +241,18 @@ func loadAuthors() {
 }
 
 func serveStaticFile(filename string) http.HandlerFunc {
+	data, err := embeddedFS.ReadFile(filename)
+	if err != nil {
+		log.Fatal(err)
+	}
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		http.ServeFile(w, r, filename)
+		w.Write(data)
 	})
 }
 
-func Serve(addr, templateDir, staticDir string) {
+func Serve(addr string) {
 	// Parse templates.
-	templates = template.Must(template.ParseGlob(filepath.Join(templateDir, "*.html")))
+	templates = template.Must(template.ParseFS(embeddedFS, "templates/*.html"))
 
 	// Load authors.
 	loadAuthors()
@@ -262,13 +265,13 @@ func Serve(addr, templateDir, staticDir string) {
 	http.HandleFunc("/writer/", writerHandler)
 	http.HandleFunc("/about/", aboutHandler)
 	http.HandleFunc("/api", apiHandler)
-	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir(staticDir))))
-	http.HandleFunc("/favicon.ico", serveStaticFile(filepath.Join(staticDir, "favicon.ico")))
-	http.HandleFunc("/robots.txt", serveStaticFile(filepath.Join(staticDir, "robots.txt")))
+	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.FS(embeddedFS))))
+	http.HandleFunc("/favicon.ico", serveStaticFile("static/favicon.ico"))
+	http.HandleFunc("/robots.txt", serveStaticFile("static/robots.txt"))
 
 	// Launch server.
 	log.Printf("Started server at %s", addr)
 	if err := http.ListenAndServe(addr, nil); err != nil {
-		log.Fatalf("%s", err)
+		log.Fatal(err)
 	}
 }

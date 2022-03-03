@@ -3,6 +3,7 @@ package bayes
 import (
 	"compress/gzip"
 	"encoding/gob"
+	"io"
 	"os"
 )
 
@@ -34,8 +35,12 @@ func LoadFile(filename string) (*Bayes, error) {
 		return nil, err
 	}
 	defer f.Close()
+	return LoadReader(f)
+}
+
+func LoadReader(r io.Reader) (*Bayes, error) {
 	eb := new(serializedBayes)
-	z, err := gzip.NewReader(f)
+	z, err := gzip.NewReader(r)
 	if err != nil {
 		return nil, err
 	}
