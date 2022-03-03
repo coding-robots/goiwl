@@ -57,7 +57,7 @@
             <h2>Available authors <span class="label">{{len .Authors}}</span></h2>
             <ul>
             {{range $author := .Authors}}
-                <li><a href="{{.SitePrefix}}/writer/{{index $.URLNameByAuthor $author}}">{{$author}}</a></li>
+                <li><a href="{{$.SitePrefix}}/writer/{{index $.URLNameByAuthor $author}}">{{$author}}</a></li>
             {{end}}
             </li>
         </div>
