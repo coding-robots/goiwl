@@ -7,6 +7,7 @@ import (
 	"log"
 	"math/rand"
 	"net/http"
+	"net/http/fcgi"
 	"path"
 	"sort"
 	"strconv"
@@ -270,8 +271,13 @@ func Serve(addr string) {
 	http.HandleFunc("/robots.txt", serveStaticFile("static/robots.txt"))
 
 	// Launch server.
-	log.Printf("Started server at %s", addr)
-	if err := http.ListenAndServe(addr, nil); err != nil {
-		log.Fatal(err)
+	if addr == "" {
+		log.Printf("Started FastCGI server")
+		fcgi.Serve(nil, nil)
+	} else {
+		log.Printf("Started HTTP server at %s", addr)
+		if err := http.ListenAndServe(addr, nil); err != nil {
+			log.Fatal(err)
+		}
 	}
 }

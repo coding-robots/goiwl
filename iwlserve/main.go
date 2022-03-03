@@ -14,7 +14,7 @@ import (
 )
 
 var (
-	serverAddr  = flag.String("s", "localhost:8080", "HTTP service address and port (e.g. ':8080')")
+	serverAddr  = flag.String("s", "", "HTTP service address and port (e.g. ':8080'). If empty, use FastCGI.")
 	tryClassify = flag.Bool("try", false, "read input from stdin and classify it")
 
 	classifier *bayes.Bayes
