@@ -65,7 +65,9 @@ func main() {
 		classifyStdin()
 		return
 	}
-	fmt.Printf("Loaded in %s\n", time.Now().Sub(t))
+	if *serverAddr != "" {
+		log.Printf("Loaded in %s\n", time.Now().Sub(t))
+	}
 
 	Serve(*serverAddr)
 }
