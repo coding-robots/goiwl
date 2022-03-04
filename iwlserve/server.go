@@ -229,9 +229,6 @@ func loadAuthors() {
 		sortedAuthors = append(sortedAuthors, author)
 		crc := crc32.ChecksumIEEE([]byte(author))
 		hexCrc := strconv.FormatUint(uint64(crc), 16)
-		//XXX temporary
-		//log.Printf("%s = %s", author, hexCrc)
-		//----
 		authorByCrc[hexCrc] = author
 		crcByAuthor[author] = hexCrc
 		authorByURLName[authorNameToURLSafeName(author)] = author
@@ -243,8 +240,6 @@ func loadAuthors() {
 		}
 	}
 	sort.Strings(sortedAuthors)
-	//XXX temporary
-	log.Printf("number of words: %d", classifier.NumberOfTokens())
 }
 
 func serveStaticFile(filename string) http.HandlerFunc {
@@ -280,8 +275,9 @@ func Serve(addr string) {
 
 	// Launch server.
 	if addr == "" {
-		log.Printf("Started FastCGI server")
-		fcgi.Serve(nil, handler)
+		if err := fcgi.Serve(nil, handler); err != nil {
+			log.Fatal(err)
+		}
 	} else {
 		log.Printf("Started HTTP server at %s", addr)
 		if err := http.ListenAndServe(addr, handler); err != nil {
