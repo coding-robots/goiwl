@@ -15,23 +15,23 @@ const noWordRating = 0.4
 // Rank returns a slice of probabilities indexed by category.
 func (b *Bayes) Rank(tz tokenizer.Tokenizer) []float64 {
 	// Initialize ratings map.
-	ratings := make([][]float64, len(b.categories))
+	ratings := make([][]float64, len(b.Categories))
 	var words []string
 	if Debugging {
 		words = make([]string, 0, 10)
 	}
-	for i := range b.categories {
+	for i := range b.Categories {
 		ratings[i] = make([]float64, 0, 10)
 	}
-	sumTotals := b.sumTotals()
+	sumTotals := b.sumTotals
 	for tz.Next() {
-		tokenCounts, ok := b.tokens[tz.Token()]
+		tokenCounts, ok := b.Tokens[tz.Token()]
 		if Debugging {
 			words = append(words, tz.Token())
 		}
 		if !ok {
 			// Never seen this word.
-			for i := range b.categories {
+			for i := range b.Categories {
 				ratings[i] = append(ratings[i], noWordRating)
 			}
 			continue
@@ -42,7 +42,7 @@ func (b *Bayes) Rank(tz tokenizer.Tokenizer) []float64 {
 			sumToken += float64(v)
 		}
 
-		for catIndex, catTotal := range b.totals {
+		for catIndex, catTotal := range b.Totals {
 			if catIndex >= len(tokenCounts) {
 				ratings[catIndex] = append(ratings[catIndex], 0.2)
 				continue
@@ -78,7 +78,7 @@ func (b *Bayes) Rank(tz tokenizer.Tokenizer) []float64 {
 		// then leave only 10 lowest and 10 highest results.
 		if len(probs) > 6 {
 			sort.Float64s(probs)
-			probs = probs[2:len(probs)-2]
+			probs = probs[2 : len(probs)-2]
 			if len(probs) > 80 {
 				probs = append(probs[:40], probs[len(probs)-40:]...)
 			}

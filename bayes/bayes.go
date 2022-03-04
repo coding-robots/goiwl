@@ -8,25 +8,21 @@ import (
 )
 
 type Bayes struct {
-	categories []string
-	// {category_index: 0, ...}
-	totals map[int]float64
-	// {"word":{0:33, ...}}
-	tokens map[string][]uint32
-}
-
-type serializedBayes struct {
 	Categories []string
-	Totals     map[int]float64
-	Tokens     map[string][]uint32
+	// {category_index: 0, ...}
+	Totals map[int]float64
+	// {"word":{0:33, ...}}
+	Tokens map[string][]uint32
+
+	sumTotals float64
 }
 
 func New() *Bayes {
-	b := new(Bayes)
-	b.categories = make([]string, 0, 52)
-	b.totals = make(map[int]float64)
-	b.tokens = make(map[string][]uint32)
-	return b
+	return &Bayes{
+		Categories: make([]string, 0, 52),
+		Totals:     make(map[int]float64),
+		Tokens:     make(map[string][]uint32),
+	}
 }
 
 func LoadFile(filename string) (*Bayes, error) {
@@ -39,17 +35,17 @@ func LoadFile(filename string) (*Bayes, error) {
 }
 
 func LoadReader(r io.Reader) (*Bayes, error) {
-	eb := new(serializedBayes)
 	z, err := gzip.NewReader(r)
 	if err != nil {
 		return nil, err
 	}
 	defer z.Close()
-	if err := gob.NewDecoder(z).Decode(eb); err != nil {
+	var b Bayes
+	if err := gob.NewDecoder(z).Decode(&b); err != nil {
 		return nil, err
 	}
-
-	return &Bayes{eb.Categories, eb.Totals, eb.Tokens}, nil
+	b.calcSumTotals()
+	return &b, nil
 }
 
 func (b *Bayes) WriteFile(filename string) error {
@@ -57,17 +53,12 @@ func (b *Bayes) WriteFile(filename string) error {
 	if err != nil {
 		return err
 	}
-	eb := &serializedBayes{
-		b.categories,
-		b.totals,
-		b.tokens,
-	}
 	z, err := gzip.NewWriterLevel(f, gzip.BestCompression)
 	if err != nil {
 		f.Close()
 		return err
 	}
-	if err := gob.NewEncoder(z).Encode(eb); err != nil {
+	if err := gob.NewEncoder(z).Encode(b); err != nil {
 		z.Close()
 		f.Close()
 		return err
@@ -88,32 +79,27 @@ func (b *Bayes) WriteFile(filename string) error {
 
 func (b *Bayes) categoryIndex(cat string) int {
 	// Try to find category.
-	for i, v := range b.categories {
+	for i, v := range b.Categories {
 		if v == cat {
 			return i
 		}
 	}
 	// Not found, append.
-	b.categories = append(b.categories, cat)
-	return len(b.categories) - 1
+	b.Categories = append(b.Categories, cat)
+	return len(b.Categories) - 1
 }
 
 func (b *Bayes) CategoryForIndex(catIndex int) string {
-	return b.categories[catIndex]
-}
-
-func (b *Bayes) Categories() []string {
-	return b.categories
+	return b.Categories[catIndex]
 }
 
 func (b *Bayes) NumberOfTokens() int {
-	return len(b.tokens)
+	return len(b.Tokens)
 }
 
-func (b *Bayes) sumTotals() (sum float64) {
-	//TODO store this thing instead of calculating it.
-	for _, v := range b.totals {
-		sum += v
+func (b *Bayes) calcSumTotals() {
+	b.sumTotals = 0
+	for _, v := range b.Totals {
+		b.sumTotals += v
 	}
-	return
 }

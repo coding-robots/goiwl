@@ -225,7 +225,7 @@ func loadAuthors() {
 	urlNameByAuthor = make(map[string]string)
 	infoByAuthor = make(map[string]*AuthorInfo)
 	sortedAuthors = make([]string, 0)
-	for _, author := range classifier.Categories() {
+	for _, author := range classifier.Categories {
 		sortedAuthors = append(sortedAuthors, author)
 		crc := crc32.ChecksumIEEE([]byte(author))
 		hexCrc := strconv.FormatUint(uint64(crc), 16)

@@ -13,24 +13,24 @@ import (
 
 func (b *Bayes) trainToken(catIndex int, word string) {
 	// Increment totals.
-	b.totals[catIndex]++
+	b.Totals[catIndex]++
 	// Increment tokens.
-	t, ok := b.tokens[word]
+	t, ok := b.Tokens[word]
 	if !ok {
 		t = make([]uint32, catIndex+1)
-		b.tokens[word] = t
+		b.Tokens[word] = t
 	} else if len(t) <= catIndex {
 		tmp := make([]uint32, catIndex+1)
 		copy(tmp, t)
 		t = tmp
-		b.tokens[word] = t
+		b.Tokens[word] = t
 	}
 	t[catIndex]++
 }
 
 func (b *Bayes) RemoveExtremes() {
-	cutoff := len(b.categories)-len(b.categories)/5
-	for i, token := range b.tokens {
+	cutoff := len(b.Categories) - len(b.Categories)/5
+	for i, token := range b.Tokens {
 		// Count zeros.
 		zeros := 0
 		for _, n := range token {
@@ -39,7 +39,7 @@ func (b *Bayes) RemoveExtremes() {
 			}
 		}
 		if zeros >= cutoff {
-			delete(b.tokens, i)
+			delete(b.Tokens, i)
 			// ...but leave totals as is.
 		}
 	}
